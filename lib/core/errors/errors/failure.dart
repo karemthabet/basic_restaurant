@@ -8,4 +8,7 @@ abstract class Failure {
 class FirebaseAuthFailure extends Failure {
   FirebaseAuthFailure({required super.errMessage});
 }
+class FirebaseFirestoreFailure extends Failure {
+  FirebaseFirestoreFailure({required super.errMessage});
+}
 
