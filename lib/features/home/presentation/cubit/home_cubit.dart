@@ -8,12 +8,28 @@ class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
   HomeCubit(this.homeRepo) : super(HomeInitial());
 
-  Future<void> getProducts() async {
-    emit(HomeLoading());
-    final result = await homeRepo.getHomeData();
+Future<void> streamProducts() async {
+  emit(HomeLoading());
+  homeRepo.getHomeDataStream().listen(
+    (products) => emit(HomeSuccess(products: products)),
+    onError: (error) => emit(HomeError(message: error.toString())),
+  );
+}
+
+
+  Future<void> addToCart({required ProductModel product}) async {
+    var result = await homeRepo.addToCart(product: product);
     result.fold(
       (failure) => emit(HomeError(message: failure.errMessage)),
-      (products) => emit(HomeSuccess(products: products)),
+      (r) => emit(HomeCartSuccess()),
+    );
+  }
+
+  Future<void> deleteProduct({required String documentId}) async {
+    var result = await homeRepo.removeFromCart(documentId: documentId);
+    result.fold(
+      (failure) => emit(HomeError(message: failure.errMessage)),
+      (r) => emit(HomeCartSuccess()),
     );
   }
 }

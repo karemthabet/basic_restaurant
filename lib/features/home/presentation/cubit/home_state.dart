@@ -15,3 +15,6 @@ class HomeError extends HomeState {
   String message;
   HomeError({required this.message});
 }
+
+class HomeCartSuccess extends HomeState {}
+class HomeRemoveSuccess extends HomeState {}

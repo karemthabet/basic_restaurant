@@ -7,23 +7,31 @@ class CloudFirestoreService {
     required String path,
     required Map<String, dynamic> data,
   }) async {
-    final reference = firestore.doc(path);
-    await reference.set(data);
-  }
-Future<void> updateData({
-    required String path,
-    required Map<String, dynamic> data,
-  }) async {
-    final reference = firestore.doc(path);
-    await reference.update(data);
-  }
-  Future<void> deleteData({required String path}) async {
-    final reference = firestore.doc(path);
-    await reference.delete();
-  }
-  Future<dynamic> getData({required String path}) async {
-    var data = await firestore.collection(path).get();
-      return data.docs;
+    final reference = firestore.collection(path);
+    await reference.doc().set(data);
   }
 
+  Future<void> updateData({
+    required String path,
+    required String docuementId,
+    required Map<String, dynamic> data,
+  }) async {
+    await firestore.collection(path).doc(docuementId).update(data);
+  }
+
+  Future<void> deleteData({
+    required String path,
+    required String documentId,
+  }) async {
+    final reference = firestore.collection(path);
+    await reference.doc(documentId).delete();
+  }
+
+  Future<dynamic> getData({required String path}) async {
+    var data = await firestore.collection(path).get();
+    return data.docs;
+  }
+  Stream<dynamic> streamData({required String path}) {
+    return firestore.collection(path).snapshots();
+  }
 }
