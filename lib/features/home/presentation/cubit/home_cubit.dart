@@ -40,7 +40,6 @@ Future<void> removeFromCart(String productId) async {
   result.fold(
     (failure) => emit(HomeCartError(message: failure.errMessage)),
     (_) {
-      // بعد الحذف، بنعتمد على الستريم اللي في listenToCart هيرجع لنا البيانات الجديدة
     },
   );
 }

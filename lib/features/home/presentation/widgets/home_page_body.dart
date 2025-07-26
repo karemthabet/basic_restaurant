@@ -1,5 +1,5 @@
 import 'package:basic_restaurant/features/home/presentation/cubit/home_cubit.dart';
-import 'package:basic_restaurant/features/home/presentation/widgets/card_item.dart';
+import 'package:basic_restaurant/features/home/presentation/widgets/custom_card_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +15,6 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) => current is HomeSuccess || current is HomeError,
-      
       builder: (context, state) {
         if (state is HomeSuccess) {
           return Padding(
@@ -24,8 +23,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
-
-                return CardItem(product: product);
+                return CustomCardItem(product: product);
               },
             ),
           );

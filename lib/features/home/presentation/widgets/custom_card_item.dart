@@ -5,9 +5,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.product});
+class CustomCardItem extends StatelessWidget {
+  const CustomCardItem({
+    super.key,
+    required this.product,
+    this.isInCartPage = false, 
+  });
+
   final ProductModel product;
+  final bool isInCartPage;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,9 @@ class CardItem extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(width: 16),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,20 +78,22 @@ class CardItem extends StatelessWidget {
                 ],
               ),
             ),
+
             IconButton(
               onPressed: () {
-                context.read<HomeCubit>().addToCart( product);
-                showSnackBarFuction(
-                  context,
-                  'Added to Cart',
-                  isError: false,
-                );
+                if (isInCartPage) {
+                  context.read<HomeCubit>().removeFromCart(product.id);
+                  showSnackBarFuction(context, 'Deleted from Cart', isError: true);
+                } else {
+                  context.read<HomeCubit>().addToCart(product);
+                  showSnackBarFuction(context, 'Added to Cart', isError: false);
+                }
               },
-              icon: const Icon(
-                Icons.add_shopping_cart,
-                color: Colors.green,
+              icon: Icon(
+                isInCartPage ? Icons.delete : Icons.add_shopping_cart,
+                color: isInCartPage ? Colors.red : Colors.green,
               ),
-              tooltip: 'Add to Cart',
+              tooltip: isInCartPage ? 'Remove from Cart' : 'Add to Cart',
             ),
           ],
         ),
