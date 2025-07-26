@@ -11,7 +11,6 @@ class AddToCartPageBody extends StatefulWidget {
 }
 
 class _AddToCartPageBodyState extends State<AddToCartPageBody> {
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -71,9 +70,9 @@ class _AddToCartPageBodyState extends State<AddToCartPageBody> {
                         trailing: IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
-                          // //  context
-                          //       .read<HomeCubit>()
-                          //       .deleteProduct(documentId: product.id);
+                            context
+                                .read<HomeCubit>()
+                                .removeFromCart(product.id);
                           },
                         ),
                       ),
@@ -82,7 +81,8 @@ class _AddToCartPageBodyState extends State<AddToCartPageBody> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   boxShadow: [

@@ -49,29 +49,6 @@ class HomeRepoImpl implements HomeRepo {
     );
   }
 }
-
-  
-  @override
-  Future<Either<Failure, List<ProductModel>>> getCartData()async {
-  try {
-      List<ProductModel> products = [];
-      final docs = await cloudFirestoreService.getData(path: "cart");
-
-      for (var doc in docs) {
-        final json = doc.data() as Map<String, dynamic>;
-        final product = ProductModel.fromJson(json);
-        products.add(product);
-      }
-      return Right(products);
-    } on FirebaseException catch (e) {
-      return Left(handleFirestoreError(e)); // Use the handler here
-    } catch (e) {
-      return Left(
-        FirebaseFirestoreFailure(errMessage: 'Unknown error occurred: $e'),
-      );
-    }
-  }
-  
   @override
   Stream<List<ProductModel>> getCartDataStream() {
     return cloudFirestoreService.streamData(path: "cart").map((snapshot) {
@@ -84,6 +61,19 @@ class HomeRepoImpl implements HomeRepo {
       return products;
     });
   }
+@override
+Future<Either<Failure, void>> removeFromCart(String productId) async {
+  try {
+    await cloudFirestoreService.deleteData(path: "cart/$productId");
+    return const Right(null);
+  } on FirebaseException catch (e) {
+    return Left(handleFirestoreError(e));
+  } catch (e) {
+    return Left(
+      FirebaseFirestoreFailure(errMessage: 'Unknown error occurred: $e'),
+    );
+  }
+}
 
 }
 

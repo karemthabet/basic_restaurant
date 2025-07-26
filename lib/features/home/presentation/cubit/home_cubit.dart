@@ -17,14 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
       (products) => emit(HomeSuccess(products: products)),
     );
   }
-   Future<void> getCart() async {
-    emit(HomeLoading());
-    final result = await homeRepo.getCartData();
-    result.fold(
-      (failure) => emit(HomeError(message: failure.errMessage)),
-      (products) => emit(HomeCartSuccess(cartItems: products)),
-    );
-  }
+
 void listenToCart() {
   emit(HomeCartLoading());
 
@@ -40,6 +33,17 @@ void listenToCart() {
     emit(HomeLoading());
     final result = await homeRepo.addToCart(product: product);
     result.fold((failure) => emit(HomeError(message: failure.errMessage)), (_) {});}
+Future<void> removeFromCart(String productId) async {
+  emit(HomeCartLoading());
+
+  final result = await homeRepo.removeFromCart(productId);
+  result.fold(
+    (failure) => emit(HomeCartError(message: failure.errMessage)),
+    (_) {
+      // بعد الحذف، بنعتمد على الستريم اللي في listenToCart هيرجع لنا البيانات الجديدة
+    },
+  );
+}
 
  
  
