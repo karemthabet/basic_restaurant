@@ -16,9 +16,9 @@ class AuthRepoImpl extends AuthRepo {
           email: email, password: password);
       return right(user!);
     } on FirebaseAuthException catch (e) {
-      return left(FirebaseErrorHandler(e.code));
+      return left(FirebaseErrorHandler.fromCode(e.code));
     } catch (e) {
-      return left(FirebaseErrorHandler(e.toString()));
+      return left(FirebaseErrorHandler.fromCode(e.toString()));
     }
   }
 
@@ -44,9 +44,9 @@ class AuthRepoImpl extends AuthRepo {
         return left(FirebaseErrorHandler('User creation failed'));
       }
     } on FirebaseAuthException catch (e) {
-      return left(FirebaseErrorHandler(e.code));
+      return left(FirebaseErrorHandler.fromCode(e.code));
     } catch (e) {
-      return left(FirebaseErrorHandler(e.toString()));
+      return left(FirebaseErrorHandler.fromCode(e.toString()));
     }
   }
 }
