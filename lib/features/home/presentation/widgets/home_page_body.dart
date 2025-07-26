@@ -1,4 +1,5 @@
 import 'package:basic_restaurant/features/home/presentation/cubit/home_cubit.dart';
+import 'package:basic_restaurant/features/home/presentation/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,43 +14,30 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (previous, current) {
-        if (current is HomeSuccess|| current is HomeError) {
-          return true;
-        }
-        return false;
-      },
+      buildWhen: (previous, current) => current is HomeSuccess || current is HomeError,
+      
       builder: (context, state) {
         if (state is HomeSuccess) {
-          if (state.products.isEmpty) {
-            return const Center(child: Text("No products"));
-          }
-          return ListView.builder(
-            itemCount: state.products.length,
-            itemBuilder: (context, index) {
-              final product = state.products[index];
-              return ListTile(
-                title: Text(product.name),
-                subtitle: Text(product.price.toString()),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    context.read<HomeCubit>().deleteProduct(
-                      documentId: product.id,
-                    );
-                  },
-                ),
-              );
-            },
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ListView.builder(
+              itemCount: state.products.length,
+              itemBuilder: (context, index) {
+                final product = state.products[index];
+
+                return CardItem(product: product);
+              },
+            ),
           );
         } else if (state is HomeError) {
           return Center(
             child: Text(
               state.message,
-              style: const TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red, fontSize: 16),
             ),
           );
         }
+
         return const Center(child: CircularProgressIndicator());
       },
     );

@@ -7,8 +7,8 @@ abstract class HomeRepo {
   Future<Either<Failure, void>> addToCart({
     required ProductModel product,
   });
-  Future<Either<Failure, void>> removeFromCart({
+  Future<Either<Failure, void>> deleteItemFromCart({
     required documentId,
   });
-  Stream<List<ProductModel>> getHomeDataStream();
+  Stream<List<ProductModel>> getCartDataStream();
 }

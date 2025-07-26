@@ -17,7 +17,7 @@ class HomeRepoImpl implements HomeRepo {
 
       for (var doc in docs) {
         final json = doc.data() as Map<String, dynamic>;
-        final product = ProductModel.fromJson(json);
+        final product = ProductModel.fromJson(json, doc.id);
         products.add(product);
       }
       return Right(products);
@@ -36,7 +36,7 @@ class HomeRepoImpl implements HomeRepo {
   }) async {
     try {
       await cloudFirestoreService.setData(
-        path: "product",
+        path: "cart",
         data: product.toJson(),
       );
       return const Right(null);
@@ -50,10 +50,10 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, void>> removeFromCart({required documentId}) async {
+  Future<Either<Failure, void>> deleteItemFromCart({required documentId}) async {
     try {
       await cloudFirestoreService.deleteData(
-        path: "product",
+        path: "cart",
         documentId: documentId,
       );
       return const Right(null);
@@ -67,16 +67,18 @@ class HomeRepoImpl implements HomeRepo {
   }
   
   @override
-  Stream<List<ProductModel>> getHomeDataStream()async* {
-    yield* cloudFirestoreService.streamData(path: "product").map((document) {
+  @override
+  Stream<List<ProductModel>> getCartDataStream()async* {
+     yield* cloudFirestoreService.streamData(path: "cart").map((document) {
       List<ProductModel> products = [];
       for (var doc in document.docs) {
-        final json = doc.data() as Map<String, dynamic>;
-        final product = ProductModel.fromJson(json);
-        products.add(product);
-      }
+  final json = doc.data() as Map<String, dynamic>;
+  final product = ProductModel.fromJson(json, doc.id); // ✅ استخدم doc.id
+  products.add(product);
+}
+
       return products;
     });
-    
+   
   }
 }
