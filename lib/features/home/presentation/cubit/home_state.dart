@@ -12,6 +12,18 @@ class HomeSuccess extends HomeState {
 }
 
 class HomeError extends HomeState {
-  String message;
+  final String message;
   HomeError({required this.message});
+}
+
+class HomeCartSuccess extends HomeState {
+  final List<ProductModel> cartItems;
+  HomeCartSuccess({required this.cartItems});
+}
+
+class HomeUpdateSuccess extends HomeState {}
+
+class HomeRemoveSuccess extends HomeState {
+  final List<ProductModel> cartItems;
+  HomeRemoveSuccess({required this.cartItems});
 }

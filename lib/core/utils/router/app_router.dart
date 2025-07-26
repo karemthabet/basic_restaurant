@@ -9,21 +9,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 class AppRouter {
   static final router = GoRouter(
-      // redirect: (context, state) {
-      //   final user = getIt.get<FirebaseAuth>().currentUser;
-      //   final loggingIn = state.fullPath == RoutesName.splash ||
-      //       state.fullPath == RoutesName.onBoarding;
+      redirect: (context, state) {
+        final user = getIt.get<FirebaseAuth>().currentUser;
+        final loggingIn = state.fullPath == RoutesName.splash ||
+            state.fullPath == RoutesName.onBoarding;
 
-      //   if (user == null && !loggingIn) {
-      //     return RoutesName.splash;
-      //   }
+        if (user == null && !loggingIn) {
+          return RoutesName.splash;
+        }
 
-      //   if (user != null && state.fullPath == RoutesName.splash) {
-      //     return RoutesName.home;
-      //   }
+        if (user != null && state.fullPath == RoutesName.splash) {
+          return RoutesName.home;
+        }
 
-      //   return null;
-      // },
+        return null;
+      },
       routes: [
         GoRoute(
             path: RoutesName.home,

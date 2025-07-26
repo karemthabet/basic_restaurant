@@ -13,9 +13,9 @@ class ForgotPasswordBody extends StatelessWidget {
         child: Column(children: [
 Image.asset(AppAssets.lock),
           // CustomTextFormFieldWidget(label: 'Password'),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
                 // CustomTextFormFieldWidget(label: 'New Password'),
-        Spacer(),
+        const Spacer(),
         CustomElevatedButton(onPressed: (){}, text: "Confirm")
         ],),
       ),

@@ -10,16 +10,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<HomeCubit>(),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              context.read<HomeCubit>().getProducts();
-            }),
-            body: const HomePageBody(),
-          );
-        }
+      create: (context) => getIt.get<HomeCubit>()..getHomeData(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Food Menu'), centerTitle: true),
+        body: const HomePageBody(),
       ),
     );
   }
