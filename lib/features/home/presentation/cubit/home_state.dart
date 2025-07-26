@@ -27,3 +27,10 @@ class HomeRemoveSuccess extends HomeState {
   final List<ProductModel> cartItems;
   HomeRemoveSuccess({required this.cartItems});
 }
+
+class HomeCartLoading extends HomeState {}
+
+class HomeCartError extends HomeState {
+  final String message;
+  HomeCartError({required this.message});
+}

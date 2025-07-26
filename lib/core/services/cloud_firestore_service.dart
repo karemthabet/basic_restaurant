@@ -25,5 +25,9 @@ Future<void> updateData({
     var data = await firestore.collection(path).get();
       return data.docs;
   }
+  Stream<List<QueryDocumentSnapshot>> streamData({required String path}) {
+  return firestore.collection(path).snapshots().map((snapshot) => snapshot.docs);
+}
+
 
 }

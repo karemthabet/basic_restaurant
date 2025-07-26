@@ -17,5 +17,12 @@ class ProductModel {
       price: json['price'],
     );
   }
-  toJson() => {'id': id, 'name': name, 'image': image, 'price': price};
-}
+Map<String , dynamic> toJson(){
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+      'price': price,
+    };
+
+  }}

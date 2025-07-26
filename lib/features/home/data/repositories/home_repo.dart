@@ -4,11 +4,10 @@ import 'package:dartz/dartz.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<ProductModel>>> getHomeData();
+  Future<Either<Failure, List<ProductModel>>> getCartData();
+  Stream<List<ProductModel>> getCartDataStream();
   Future<Either<Failure, void>> addToCart({
     required ProductModel product,
   });
-  // Future<Either<Failure, void>> deleteItemFromCart({
-  //   required documentId,
-  // });
-  //Stream<List<ProductModel>> getCartDataStream();
+
 }

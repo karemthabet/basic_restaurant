@@ -17,20 +17,30 @@ class HomeCubit extends Cubit<HomeState> {
       (products) => emit(HomeSuccess(products: products)),
     );
   }
-
-  // void listenToCart() {
-  //   _cartStream = homeRepo.getCartDataStream();
-  //   _cartStream?.listen((cartItems) {
-  //     emit(HomeCartSuccess(cartItems: cartItems));
-  //   });
-  // }
-
-  Future<void> addToCart(ProductModel product) async {
-    await homeRepo.addToCart( product:  product);
+   Future<void> getCart() async {
+    emit(HomeLoading());
+    final result = await homeRepo.getCartData();
+    result.fold(
+      (failure) => emit(HomeError(message: failure.errMessage)),
+      (products) => emit(HomeCartSuccess(cartItems: products)),
+    );
   }
+void listenToCart() {
+  emit(HomeCartLoading());
 
-  // Future<void> deleteProduct({required String documentId}) async {
-  //   await homeRepo.deleteItemFromCart(documentId: documentId);
-  // }
+  homeRepo.getCartDataStream().listen((cartProducts) {
+    try {
+      emit(HomeCartSuccess(cartItems: cartProducts));
+    } catch (e) {
+      emit(HomeCartError(message: "Error loading cart: $e"));
+    }
+  });
+}
+  Future<void> addToCart(ProductModel product) async {
+    emit(HomeLoading());
+    final result = await homeRepo.addToCart(product: product);
+    result.fold((failure) => emit(HomeError(message: failure.errMessage)), (_) {});}
+
+ 
  
 }
