@@ -40,7 +40,7 @@ class _LogInFormState extends State<LogInForm> {
         listener: (context, state) {
           if (state is LogInSuccess) {
                if (mounted) {
-        GoRouter.of(context).replace(RoutesName.home);
+        GoRouter.of(context).replace(RoutesName.mainPage);
       }
           } else if (state is LogInFailure) {
             showAppSnackBar(

@@ -83,7 +83,6 @@ class CustomCardItem extends StatelessWidget {
               onPressed: () {
                 if (isInCartPage) {
                   context.read<HomeCubit>().removeFromCart(product.id);
-                  showSnackBarFuction(context, 'Deleted from Cart', isError: true);
                 } else {
                   context.read<HomeCubit>().addToCart(product);
                   showSnackBarFuction(context, 'Added to Cart', isError: false);

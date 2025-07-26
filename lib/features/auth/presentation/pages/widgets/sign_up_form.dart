@@ -46,7 +46,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 message: "Success Registration");
               
     if (mounted) {
-        GoRouter.of(context).replace(RoutesName.home);
+        GoRouter.of(context).replace(RoutesName.mainPage);
       }
           } else if (state is SignUpFailure) {
             showAppSnackBar(

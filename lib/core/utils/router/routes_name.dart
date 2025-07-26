@@ -1,11 +1,9 @@
 class RoutesName {
-  static const String home = '/home'; 
-   static const String splash= '/';
-   static const String onBoarding= '/onboarding';
-   static const String auth= '/auth';
-   static const String forgetPassword= '/forgetpassword';
-   static const String addToCart= '/addToCart';
-   static const String mainPage= '/mainPage';
-
-  
+  static const splash = '/';
+  static const onBoarding = '/onBoarding';
+  static const auth = '/auth';
+  static const forgetPassword = '/forgetPassword';
+  static const home = '/home';
+  static const mainPage = '/main';
+  static const addToCart = '/addToCart';
 }
