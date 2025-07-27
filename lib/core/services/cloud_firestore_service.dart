@@ -21,13 +21,17 @@ Future<void> updateData({
     final reference = firestore.doc(path);
     await reference.delete();
   }
-  Future<dynamic> getData({required String path}) async {
-    var data = await firestore.collection(path).get();
-      return data.docs;
-  }
-  Stream<List<QueryDocumentSnapshot>> streamData({required String path}) {
-  return firestore.collection(path).snapshots().map((snapshot) => snapshot.docs);
+  Future<List<QueryDocumentSnapshot>> getData({required String path}) async {
+  final reference = firestore.collection(path);
+  final snapshot = await reference.get();
+  return snapshot.docs;
 }
+
+Stream<List<QueryDocumentSnapshot>> streamData({required String path}) {
+  final reference = firestore.collection(path);
+  return reference.snapshots().map((snapshot) => snapshot.docs);
+}
+
 
 
 }
