@@ -16,56 +16,61 @@ class AddToCartPageBody extends StatefulWidget {
 class _AddToCartPageBodyState extends State<AddToCartPageBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (previous, current) =>
-          current is HomeCartSuccess || current is HomeError,
-      builder: (context, state) {
-        if (state is HomeCartSuccess) {
-          final cartItems = state.cartItems;
-          if (cartItems.isEmpty) {
-            return const Center(
-              child: Text(
-                "Cart is empty",
-                style: TextStyle(fontSize: 18),
-              ),
-            );
-          }
-
-          return Column(
-            children: [
-              Expanded(child: ListViewCartItems(cartItems: cartItems)),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: ElevatedButton.icon(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    if(context.mounted){
-                      
-                      context.go(RoutesName.auth);
-                    }
-                    
-                  },
-                  icon: const Icon(Icons.logout),
-                  label: const Text('Logout'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+    return Column(
+      children: [
+        BlocBuilder<HomeCubit, HomeState>(
+          buildWhen: (previous, current) =>
+              current is HomeCartSuccess || current is HomeError,
+          builder: (context, state) {
+            if (state is HomeCartSuccess) {
+              final cartItems = state.cartItems;
+              if (cartItems.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "Cart is empty",
+                    style: TextStyle(fontSize: 18),
                   ),
-                ),
-              ),
-            ],
-          );
-        } else if (state is HomeError) {
-          return Center(child: Text(state.message));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
+                );
+              }
+        
+              return Expanded(child: ListViewCartItems(cartItems: cartItems));
+            } else if (state is HomeError) {
+              return Center(child: Text(state.message));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+          Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: logOutButton(),
+                  ),
+                
+      ],
     );
+  }
+  Widget logOutButton(){
+    return ElevatedButton.icon(
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        if(context.mounted){
+                      
+                          context.go(RoutesName.auth);
+                        }
+                        
+                      },
+                      icon: const Icon(Icons.logout),
+                      label: const Text('Logout'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    );
+
   }
 }

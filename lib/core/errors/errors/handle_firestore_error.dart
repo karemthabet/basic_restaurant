@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'failure.dart'; // Make sure the import path is correct
 
 Failure handleFirestoreError(dynamic e) {
