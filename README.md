@@ -13,6 +13,36 @@ This phase focused on implementing the **core functional features** and connecti
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+
+<table>
+  <tr>
+    <td><img src="assets/images/splash,auth.png" width="220"/></td>
+    <td><img src="assets/images/on bord.png" width="220"/></td>
+  </tr>
+  <tr>
+    <td><b>Splash Screen and Auth</b></td>
+    <td><b>Onboarding</b></td>
+  </tr>
+</table>
+
+<br/>
+
+<table>
+  <tr>
+    <td><img src="assets/images/add.png" width="220"/></td>
+  </tr>
+  <tr>
+    <td><b>Add to Cart</b></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 ## 🚀 Features Implemented in This Phase
 
 - ✅ **Splash Screen**  
@@ -44,14 +74,12 @@ This phase focused on implementing the **core functional features** and connecti
 
 ---
 
-
 ## 📌 Project Status
 
-> This project is **still in progress**  more features (like order checkout, user profiles, and payment integration) will be added in the upcoming phases.
+> This project is **still in progress** – more features (like order checkout, user profiles, and payment integration) will be added in the upcoming phases.
 
 ---
 
 ## 🤝 Credits
 
-Developed during my internship at **Reco Genie**  
-
+Developed during my internship at **Reco Genie**
